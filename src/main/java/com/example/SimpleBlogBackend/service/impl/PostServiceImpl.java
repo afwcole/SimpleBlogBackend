@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +35,22 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException("Blog post does not exist"));
         return new PostDTO(post);
+    }
+
+    @Override
+    public List<PostDTO> getAllPosts() {
+        return postRepository.findAll().stream().map(PostDTO::new).toList();
+    }
+
+    @Override
+    public Boolean updatePost(PostDTO updatedPostDTO) {
+        if (!postRepository.existsById(updatedPostDTO.getPostId()))
+            throw new PostNotFoundException("This post does not exist");
+
+        Post updatedPost = new Post(updatedPostDTO);
+        updatedPost.setLastUpdated(LocalDate.now());
+        postRepository.save(updatedPost);
+
+        return true;
     }
 }
