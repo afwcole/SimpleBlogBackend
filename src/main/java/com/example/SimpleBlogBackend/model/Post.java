@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -20,15 +21,15 @@ public class Post {
     @Column(columnDefinition="TEXT")
     private String content;
     private String author;
-    private Date createdAt;
-    private Date lastUpdated;
+    private LocalDate createdAt;
+    private LocalDate lastUpdated;
 
     public Post(PostDTO postDTO){
-        this.postId = postDTO.postId();
-        this.title = postDTO.title();
-        this.content = postDTO.content();
-        this.author = postDTO.author();
-        this.createdAt = postDTO.createdAt();
-        this.lastUpdated = postDTO.lastUpdated();
+        this.postId = postDTO.getPostId();
+        this.title = postDTO.getTitle();
+        this.content = postDTO.getContent();
+        this.author = postDTO.getAuthor();
+        this.createdAt = postDTO.getCreatedAt();
+        this.lastUpdated = postDTO.getLastUpdated();
     }
 }
