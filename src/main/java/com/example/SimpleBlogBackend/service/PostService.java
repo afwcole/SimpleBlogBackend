@@ -12,4 +12,6 @@ public interface PostService {
     List<PostDTO> getAllPosts();
 
     Boolean updatePost(PostDTO postDTO);
+
+    Boolean deletePost(String postId);
 }

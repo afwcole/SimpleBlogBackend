@@ -33,4 +33,9 @@ public class PostController {
     public ResponseEntity<Boolean> updatePost(@RequestBody PostDTO updatedPost){
         return ResponseEntity.ok(postService.updatePost(updatedPost));
     }
+
+    @DeleteMapping("/post")
+    public ResponseEntity<Boolean> deletePost(@RequestParam String postId){
+        return ResponseEntity.ok(postService.deletePost(postId));
+    }
 }

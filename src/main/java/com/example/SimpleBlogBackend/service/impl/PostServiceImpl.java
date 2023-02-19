@@ -53,4 +53,12 @@ public class PostServiceImpl implements PostService {
 
         return true;
     }
+
+    @Override
+    public Boolean deletePost(String postId) {
+        if (!postRepository.existsById(postId))
+            throw new PostNotFoundException("This post does not exist");
+        postRepository.deleteById(postId);
+        return true;
+    }
 }
