@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,15 +19,18 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
     @Override
-    public Boolean createNewPost(PostDTO postDTO) {
+    public String createNewPost(PostDTO postDTO) {
         Post newPost = new Post(postDTO);
 
         LocalDate currentTime = LocalDate.now();
         newPost.setCreatedAt(currentTime);
         newPost.setLastUpdated(currentTime);
 
+        String postId = UUID.randomUUID().toString();
+        newPost.setPostId(postId);
+
         postRepository.save(newPost);
-        return true;
+        return postId;
     }
 
     @Override
@@ -39,7 +42,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDTO> getAllPosts() {
-        return postRepository.findAll().stream().map(PostDTO::new).toList();
+        return postRepository.findAll()
+                .stream()
+                .map(PostDTO::new)
+                .toList();
     }
 
     @Override

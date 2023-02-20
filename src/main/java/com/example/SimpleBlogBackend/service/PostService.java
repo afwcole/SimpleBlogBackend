@@ -5,7 +5,7 @@ import com.example.SimpleBlogBackend.dto.PostDTO;
 import java.util.List;
 
 public interface PostService {
-    Boolean createNewPost(PostDTO postDTO);
+    String createNewPost(PostDTO postDTO);
 
     PostDTO getPost(String postId);
 

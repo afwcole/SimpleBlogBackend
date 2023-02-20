@@ -11,11 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/blog")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class PostController {
     private final PostService postService;
 
     @PostMapping("/post")
-    public ResponseEntity<Boolean> createNewPost(@RequestBody PostDTO newPost){
+    public ResponseEntity<String> createNewPost(@RequestBody PostDTO newPost){
         return ResponseEntity.ok(postService.createNewPost(newPost));
     }
 
